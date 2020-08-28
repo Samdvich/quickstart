@@ -1,12 +1,12 @@
 # Init
 startcd=$PWD
-touch ~/.bashrc && touch ~/.bash_aliases
+touch ~/.bashrc ~/.bash_aliases
 rm ~/{.bashrc,.bash_aliases}
 
 # Terminal/Program Configs
-cp src/.config/.bashrc ~/ && cp src/.config/.bash_aliases ~/
+cp src/.config/{.bashrc,.bash_aliases} ~/
 echo "$(tput setaf 1)$(tput bold)- plz add bash_aliases file $(tput sgr0)"
-cp -RT src/.config ~/.config
+cd src/.config && cp -RT `ls -a --directory *` ~/.config && cd $startcd
 
 # Code
 cd ~/ && mkdir -p ~/Code/Projects ~/Code/Playground/{Bash,Ruby,Deno,C,}
@@ -18,7 +18,7 @@ echo "$(tput setaf 0)$(tput dim)" && sudo apt-get update -y && sudo apt-get full
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-if ! dpkg -l libreoffice*
+if ! dpkg -s libreoffice7.0
 then
 	wget 'https://download.documentfoundation.org/libreoffice/stable/7.0.0/deb/x86_64/LibreOffice_7.0.0_Linux_x86-64_deb.tar.gz'
 	tar -xf LibreOffice*
@@ -34,7 +34,7 @@ fi
 # Fonts
 sudo mkdir -p /usr/share/fonts/{misc,win} && sudo cp -r src/.fonts/misc/* /usr/share/fonts/misc && sudo cp -r src/.fonts/win/* /usr/share/fonts/win ; cd $startcd 
 
-if ! dpkg -l ttf-mscorefonts-installer
+if ! dpkg -s ttf-mscorefonts-installer
 then
 	wget 'http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb'
 	if ! sudo dpkg -i ttf-mscorefonts-installer*.deb
