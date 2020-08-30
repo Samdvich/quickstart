@@ -1,5 +1,5 @@
 # Config
-flag=("--help" "--projects")
+flags=("--help" "--projects")
 desc=("this message" "choose some git projects")
 gits=("https://github.com/Samdvich/quickstart" "https://github.com/Samdvich/CompUI")
 
@@ -15,20 +15,20 @@ fi
 case $* in
 	"--help")
 	       	echo -e "$(tput bold)sammy's quickstart bash script \U1F495"	
-		for flag in ${flag[@]}
+		for flag in ${!flags[@]}
 		do
-			echo "$(tput bold)$(tput setaf 5)$flag $(tput sgr0)${desc[i]}" 
+			echo "$(tput bold)$(tput setaf 5)${flags[$flag]} $(tput sgr0)${desc[$flag]}" 
 		done
 	      	exit;;
 	"--projects") # duplicates later operations, a modular approach would probably help fix this
 		echo "$(tput setaf 0)$(tput dim)" && sudo apt-get install -y git && echo "$(tput sgr0)"
 		mkdir -p ~/Code/Projects && cd ~/Code/Projects 
-		for gits in ${gits[@]}
+		for git in ${!gits[@]}
 		do
-			read -p "$(tput setaf 4)$gits $(tput sgr0)(y,n) " ans
+			read -p "$(tput setaf 4)${gits[$git]} $(tput sgr0)(y,n) " ans
 			if [ $ans == "y" ]
 			then
-				gits_ans=(${gits_ans[@]} "${gits[i]}")
+				gits_ans=(${gits_ans[@]} "${gits[$git]}")
 			fi
 		done
 		for i in ${gits_ans[@]}
