@@ -52,9 +52,9 @@ cd $startdir
 # Programs
 echo "$(tput setaf 0)$(tput dim)" 
 sudo apt-get update -y && sudo apt-get full-upgrade -y && sudo apt autoremove -y 
-sudo apt-get install -y apt-utils curl vim git flatpak unrar-free python3-pip
+sudo apt-get install -y apt-utils curl vim git flatpak unrar-free python3-pip ffmpeg
 
-sudo pip install --upgrade youtube-dl
+sudo pip3 install --upgrade youtube-dl && export PATH=/home/sammy/.local/bin:$PATH
 echo "$(tput sgr0)"
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
