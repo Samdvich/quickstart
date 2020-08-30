@@ -42,7 +42,6 @@ esac
 # Terminal/Program Configs
 touch ~/.bashrc ~/.bash_aliases ; rm ~/{.bashrc,.bash_aliases}
 cp $rootdir/src/.config/{.bashrc,.bash_aliases} ~/
-echo "$(tput setaf 1)$(tput bold)- plz add bash_aliases file $(tput sgr0)"
 cd $rootdir/src/.config && cp -RT `ls -a --directory *` ~/.config && cd $startdir
 
 # Code
