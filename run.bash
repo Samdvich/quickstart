@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Config
 flags=("--help" "--projects")
 desc=("this message" "choose some git projects")
@@ -7,8 +9,8 @@ gits=("https://github.com/Samdvich/quickstart" "https://github.com/Samdvich/Comp
 startdir=$PWD
 rootdir=`find . -name "quickstart"`
 if [[ $rootdir == "" ]]
-then
-	rootdir=.
+then	
+	rootdir=`pwd | sed 's#quickstart.*#quickstart#'`
 fi
 
 # Flags/Optionals
@@ -40,9 +42,9 @@ case $* in
 esac
 
 # Terminal/Program Configs
-touch ~/.bashrc ~/.bash_aliases ; rm ~/{.bashrc,.bash_aliases}
-cp $rootdir/src/.config/{.bashrc,.bash_aliases} ~/
-cd $rootdir/src/.config && cp -RT `ls -a --directory *` ~/.config && cd $startdir
+touch ~/.bashrc ~/.bash_aliases ~/.vimrc  ; rm ~/{.bashrc,.bash_aliases,.vimrc}
+cp $rootdir/src/.config/{.bashrc,.bash_aliases,.vimrc} ~/
+cd $rootdir/src/.config && cp -RT `echo */` ~/.config && cd $startdir
 
 # Code
 cd ~/ && mkdir -p ~/Code/Projects ~/Code/Playground/{Bash,Ruby,Deno,C,}
@@ -51,12 +53,25 @@ cd $startdir
 # Programs
 echo "$(tput setaf 0)$(tput dim)" 
 sudo apt-get update -y && sudo apt-get full-upgrade -y && sudo apt autoremove -y 
-sudo apt-get install -y apt-utils curl vim git flatpak unrar-free python3-pip ffmpeg
+sudo apt-get install -y apt-utils neofetch curl vim git flatpak unrar-free python3-pip ffmpeg gimp
 
 sudo pip3 install --upgrade youtube-dl && export PATH=/home/sammy/.local/bin:$PATH
 echo "$(tput sgr0)"
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+if ! [ -f /opt/Discord ]
+then
+	wget -P $rootdir 'https://dl.discordapp.net/apps/linux/0.0.12/discord-0.0.12.tar.gz'
+	sudo tar -xvzf $rootdir/discord*.tar.gz -C /opt
+	rm $rootdir/discord*.tar.gz
+	sudo ln -sf /opt/Discord/Discord /usr/bin/Discord # Symbolic link binary
+	sudo cp $rootdir/src/.config/discord.desktop /usr/share/applications
+	echo ""
+else
+	cat /usr/share/applications/discord.desktop
+	echo -e "\n$(tput setaf 6)Discord is already installed$(tput sgr0)\n"
+fi
 
 if ! dpkg -s libreoffice7.0
 then
