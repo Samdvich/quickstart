@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Exec=/opt/firefox/firefox
+Icon=/opt/firefox/browser/chrome/icons/default/default64.png
+Type=Application
+Terminal=false
+StartupNotify=false
+Comment=Firefox Developer Edition
+Name=Firefox
+GenericName=Firefox
+Categories=Browser;

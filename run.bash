@@ -45,20 +45,36 @@ cd $startdir
 # Programs
 echo "$(tput setaf 0)$(tput dim)" 
 sudo apt-get update -y && sudo apt-get full-upgrade -y && sudo apt autoremove -y 
-sudo apt-get install -y apt-utils neofetch curl vim git flatpak unrar-free python3-pip ffmpeg gimp
+sudo apt-get install -y apt-utils neofetch curl vim git flatpak unrar-free python3-pip ffmpeg gimp firefox-esr
 
 sudo pip3 install --upgrade youtube-dl && export PATH=/home/sammy/.local/bin:$PATH
 echo "$(tput sgr0)"
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-if ! [ -f /opt/Discord ]
+if [ ! -d /usr/local/lib/node_modules ]
+then
+    curl -L 'https://www.npmjs.com/install.sh' | sudo sh
+else
+    find /usr/local/bin/npm
+    echo -e "\n$(tput setaf 6)NPM is already installed$(tput sgr0)\n"
+fi
+
+if [ ! -d ~/.deno ]
+then
+    curl -fsSl https://deno.land/x/install/install.sh | sh
+else
+    find ~/.deno/bin/deno
+    echo -e "\n$(tput setaf 6)Deno is already installed$(tput sgr0)\n"
+fi
+
+if [ ! -d /opt/Discord ]
 then
     wget -P $rootdir 'https://dl.discordapp.net/apps/linux/0.0.12/discord-0.0.12.tar.gz'
     sudo tar -xvzf $rootdir/discord*.tar.gz -C /opt
     rm $rootdir/discord*.tar.gz
-    sudo ln -sf /opt/Discord/Discord /usr/bin/Discord # Symbolic link binary
-    sudo cp $rootdir/src/.config/discord.desktop /usr/share/applications
+    sudo ln -sf /opt/Discord/Discord /usr/bin/Discord
+    sudo cp $rootdir/src/.desktop/discord.desktop /usr/share/applications
     echo ""
 else
     cat /usr/share/applications/discord.desktop
