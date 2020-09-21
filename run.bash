@@ -81,7 +81,7 @@ else
     echo -e "\n$(tput setaf 6)Discord is already installed$(tput sgr0)\n"
 fi
 
-if ! dpkg -s libreoffice7.0
+if [ ! dpkg -s libreoffice7.0 ]
 then
     wget -P $rootdir 'https://download.documentfoundation.org/libreoffice/stable/7.0.0/deb/x86_64/LibreOffice_7.0.0_Linux_x86-64_deb.tar.gz'
     tar -xf $rootdir/LibreOffice*.tar.gz -C $rootdir
@@ -91,6 +91,14 @@ then
     echo ""
 else
     echo -e "\n$(tput setaf 6)LibreOffice already installed$(tput sgr0)\n"
+fi
+
+if [ ! dpkg -s code-oss ]
+then
+    curl -s https://packagecloud.io/install/repositories/headmelted/codebuilds/script.deb.sh | sudo bash
+    echo ""
+else
+    echo -e "\n$(tput setaf 6)VSCode (Headmelted) already installed$(tput sgr0)\n"
 fi
 
 # Fonts
