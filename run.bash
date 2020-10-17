@@ -39,7 +39,7 @@ cp $rootdir/src/.config/{.bashrc,.bash_aliases,.vimrc} ~/
 cd $rootdir/src/.config && cp -RT `echo */` ~/.config && cd $startdir
 
 # Code
-cd ~/ && mkdir -p ~/Code/Projects ~/Code/Playground/{Bash,Ruby,Deno,C,}
+cd ~/ && mkdir -p ~/Projects/Code ~/Projects/Code/Playground/{Bash,Ruby,Deno,C,}
 cd $startdir
 
 # Programs
@@ -52,7 +52,7 @@ echo "$(tput sgr0)"
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-flatpak install code-oss
+flatpak install code-oss -y
 
 if [ ! -d /usr/local/lib/node_modules ]
 then
