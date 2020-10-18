@@ -98,10 +98,9 @@ fi
 # Fonts
 sudo mkdir -p /usr/share/fonts/{misc,win} && sudo cp -r $rootdir/src/.fonts/misc/* /usr/share/fonts/misc && sudo cp -r $rootdir/src/.fonts/win/* /usr/share/fonts/win ; cd $rootdir 
 
-if [ ! `dpkg -s ttf-mscorefonts-installer` ]
-then
+if [ ! `dpkg -s ttf-mscorefonts-installer` ]; then
     wget 'http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb'
-    if ! sudo dpkg -i ttf-mscorefonts-installer*.deb; then # should run on its own to return the condition
+    if [ ! `sudo dpkg -i ttf-mscorefonts-installer*.deb` ]; then # should run on its own to return the condition
 	sudo rm /var/lib/update-notifier/package-data-downloads/partial/*
 	sudo apt-get --purge --reinstall -y install ttf-mscorefonts-installer
 	sudo apt --fix-broken -y install
