@@ -100,6 +100,7 @@ sudo mkdir -p /usr/share/fonts/{misc,win} && sudo cp -r $rootdir/src/.fonts/misc
 
 if [ ! `dpkg -s ttf-mscorefonts-installer` ]; then
     wget 'http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb'
+    sudo apt --fix-broken install
     if [ ! `sudo dpkg -i ttf-mscorefonts-installer*.deb` ]; then # should run on its own to return the condition
 	sudo rm /var/lib/update-notifier/package-data-downloads/partial/*
 	sudo apt-get --purge --reinstall -y install ttf-mscorefonts-installer
