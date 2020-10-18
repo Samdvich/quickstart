@@ -37,6 +37,7 @@ esac
 touch ~/.bashrc ~/.bash_aliases ~/.vimrc  ; rm ~/{.bashrc,.bash_aliases,.vimrc}
 cp $rootdir/src/.config/{.bashrc,.bash_aliases,.vimrc} ~/
 cd $rootdir/src/.config && cp -RT `echo */` ~/.config && cd $startdir
+source ~/.bashrc
 
 # Code
 cd ~/ && mkdir -p ~/Projects/Code ~/Projects/Code/Playground/{Bash,Ruby,Deno,C,}
@@ -83,7 +84,7 @@ else
     echo -e "\n$(tput setaf 6)Discord is already installed$(tput sgr0)\n"
 fi
 
-if [ ! `dpkg -s libreoffice7.0` ]
+if [[ ! `dpkg -s libreoffice7.0` ]]
 then
     wget -P $rootdir 'https://download.documentfoundation.org/libreoffice/stable/7.0.2/deb/x86_64/LibreOffice_7.0.2_Linux_x86-64_deb.tar.gz'
     tar -xf $rootdir/LibreOffice*.tar.gz -C $rootdir
@@ -98,7 +99,7 @@ fi
 # Fonts
 sudo mkdir -p /usr/share/fonts/{misc,win} && sudo cp -r $rootdir/src/.fonts/misc/* /usr/share/fonts/misc && sudo cp -r $rootdir/src/.fonts/win/* /usr/share/fonts/win ; cd $rootdir 
 
-if [ ! `dpkg -s ttf-mscorefonts-installer` ]; then
+if [[ ! `dpkg -s ttf-mscorefonts-installer` ]]; then
     wget 'http://ftp.de.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb'
     sudo apt --fix-broken install
     if [ ! `sudo dpkg -i ttf-mscorefonts-installer*.deb` ]; then # should run on its own to return the condition
