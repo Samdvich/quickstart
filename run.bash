@@ -52,7 +52,7 @@ echo "$(tput sgr0)"
 
 sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-flatpak install code-oss -y
+sudo flatpak install code-oss -y
 
 if [ ! -d /usr/local/lib/node_modules ]
 then
@@ -85,7 +85,7 @@ fi
 
 if [ ! `dpkg -s libreoffice7.0` ]
 then
-    wget -P $rootdir 'https://download.documentfoundation.org/libreoffice/stable/7.0.0/deb/x86_64/LibreOffice_7.0.0_Linux_x86-64_deb.tar.gz'
+    wget -P $rootdir 'https://download.documentfoundation.org/libreoffice/stable/7.0.2/deb/x86_64/LibreOffice_7.0.2_Linux_x86-64_deb.tar.gz'
     tar -xf $rootdir/LibreOffice*.tar.gz -C $rootdir
     rm $rootdir/LibreOffice*.tar.gz
     sudo dpkg -i $rootdir/LibreOffice*/DEBS/*
